@@ -3,8 +3,8 @@ PRACTICE Exam 1, problem 3.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Margaret Luffman.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -38,7 +38,7 @@ def main():
 def run_test_problem3a():
     """ Tests the   problem3a   function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  problem1a  function defined below.
     #   Include at least **   5   ** tests (we wrote four for you).
     # -------------------------------------------------------------------------
@@ -103,7 +103,14 @@ def run_test_problem3a():
     # Below this comment (or integrated with one of the above tests,
     # your choice), add 1 more test case of your own choosing.
     # -------------------------------------------------------------------------
-
+    # Test 5
+    window4 = rg.RoseWindow(500,500)
+    point = rg.Point(10,10)
+    expected = 25
+    answer = problem3a(window4,point,5)
+    print("Test 5 expected",expected)
+    print("actual",answer)
+    window4.close_on_mouse_click()
 
 def problem3a(window, point, n):
     """
@@ -138,7 +145,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -146,7 +153,21 @@ def problem3a(window, point, n):
     #    DIFFICULTY:      7 or 8
     #    TIME ESTIMATE:   20 to 35 minutes.
     # -------------------------------------------------------------------------
-
+    line1 = rg.Line(rg.Point(point.x,point.y),rg.Point(point.x,point.y + 50))
+    line1.attach_to(window)
+    s = 1
+    for k in range(n-1):
+        line2 = rg.Line(rg.Point(point.x + 20*(k+1), point.y + 10*(k+1)),
+                        rg.Point(point.x + 20*(k+1), point.y +10*(k+1)+50))
+        if k <= 5:
+            line2.thickness = line1.thickness + 2*(k+1)
+            s = s + line2.thickness
+        else:
+            line2.thickness = 13
+            s = s +13
+        line2.attach_to(window)
+    window.render()
+    return s
 
 def run_test_problem3b():
     """ Tests the   problem3b   function. """
@@ -202,7 +223,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ###########################################################################
@@ -215,6 +236,12 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # -------------------------------------------------------------------------
+    window = rg.RoseWindow(400,650)
+    x = 0
+    for k in range(m):
+        x = x + problem3a(window,rg.Point(point1.x,point1.y +60*k),2*k+3)
+    window.close_on_mouse_click()
+    return x
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
